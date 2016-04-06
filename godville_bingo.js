@@ -10,7 +10,9 @@ jQuery.get('https://godville.net/news', function(news_page){
         }
       )
     } else if (data.score < min_score) {
-      console.log('not now')
+      console.log('not enough score')
+    } else if (data.found < min_items) {
+      console.log('not enough items')
     }
   })
 })
