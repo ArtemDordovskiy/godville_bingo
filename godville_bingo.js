@@ -3,8 +3,8 @@ jQuery.get('https://godville.net/news', function(news_page){
     min_items = parseInt(jQuery(news_page).find('#bgn_block td').length / 3)
     min_score = min_items * 2;
     if (data.old_score > 3*min_score) { min_items = min_items - 1 }
-    console.log('Score: ' + data.score);
-    console.log('Previous sum: ' + data.old_score);
+    console.log('Get new score: ' + data.score);
+    console.log('Previous sum of scores: ' + data.old_score);
     console.log('Found items: ' + data.found);
     if (data.score >= min_score && data.found >= min_items) { 
       jQuery.post('https://godville.net/news/bgn_use_inventory', 
