@@ -1,5 +1,5 @@
 window.console.log('Godville Bingo initialized');
-jQuery(document).ready(function(){
+var solve_bingo = function() {
   jQuery(document).ajaxComplete(function(event, xhr, settings) {
     feed = xhr.responseJSON;
     date = new Date();
@@ -35,4 +35,10 @@ jQuery(document).ready(function(){
       }
     }
   })
-})
+}
+
+// Lets create the script objects
+var injectedScript = document.createElement('script');
+injectedScript.type = 'text/javascript';
+injectedScript.text = '('+solve_bingo+')("");';
+(document.body || document.head).appendChild(injectedScript);
