@@ -1,3 +1,4 @@
+window.console.time('Godville Bingo initialized in');
 jQuery(document).ajaxComplete(function(event, xhr, settings) {
   feed = xhr.responseJSON;
   date = new Date();
