@@ -1,5 +1,6 @@
 jQuery(document).ajaxComplete(function(event, xhr, settings) {
   feed = xhr.responseJSON;
+  console.log("Bingo working: " + Date.now());
   if (feed.hasOwnProperty('news_from_field')) {
     reg_home = new Regex('домой');
     if (reg_home.test(feed.news_from_field.msg)) {
