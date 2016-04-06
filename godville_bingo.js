@@ -1,4 +1,3 @@
-window.console.log('Godville Bingo initialized');
 var solve_bingo = function() {
   jQuery(document).ajaxComplete(function(event, xhr, settings) {
     feed = xhr.responseJSON;
@@ -42,3 +41,4 @@ var injectedScript = document.createElement('script');
 injectedScript.type = 'text/javascript';
 injectedScript.text = '('+solve_bingo+')("");';
 (document.body || document.head).appendChild(injectedScript);
+window.console.log('Godville Bingo initialized');
