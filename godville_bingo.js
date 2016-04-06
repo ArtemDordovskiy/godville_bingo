@@ -1,4 +1,11 @@
 var solve_bingo = function() {
+  var bingoEvent = document.createEvent('Event');
+  bingoEvent.initEvent('BingoEvent', true, true);
+  
+  function fireBingoEvent() {
+    document.body.dispatchEvent(bingoEvent);
+  };
+  
   jQuery(document).ajaxComplete(function(event, xhr, settings) {
     feed = xhr.responseJSON;
     date = new Date();
@@ -32,7 +39,8 @@ var solve_bingo = function() {
           })
         }) 
       }
-    }
+    };
+    fireBingoEvent();
   })
 }
 
@@ -42,3 +50,7 @@ injectedScript.type = 'text/javascript';
 injectedScript.text = '('+solve_bingo+')("");';
 (document.body || document.head).appendChild(injectedScript);
 window.console.log('Godville Bingo initialized');
+
+document.body.addEventListener('BingoEvent', function() {
+	console.log("Received bingo event!");
+});
