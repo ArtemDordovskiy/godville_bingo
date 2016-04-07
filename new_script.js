@@ -1,4 +1,4 @@
-jQuery(document).ready({
+jQuery(document).ready(function(){
   jQuery('#news').bind('DOMSubtreeModified', function() {
     feed = jQuery(this).find('.f_news').text();
     reg_home = new RegExp(/домой|город|столиц|вернулся/);
