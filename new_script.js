@@ -1,6 +1,6 @@
 jQuery('#news').bind('DOMSubtreeModified', function() {
   feed = jQuery(this).find('.f_news').text();
-  reg_home = new RegExp(/домой|город/);
+  reg_home = new RegExp(/домой|город|столиц/);
   if (reg_home.test(feed)) {
     window.console.log(feed);
     jQuery.get('https://godville.net/news', function(news_page){
