@@ -1,8 +1,5 @@
 jQuery('#news').bind('DOMSubtreeModified', function() {
   feed = jQuery(this).find('.f_news').text();
-  date = new Date();
-  window.console.log("Bingo working: " + date.toString());
-  window.console.log(feed);
   reg_home = new RegExp(/домой|город/);
   if (reg_home.test(feed)) {
     jQuery.get('https://godville.net/news', function(news_page){
