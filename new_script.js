@@ -1,4 +1,4 @@
-jQuery(document).on('change', '#news .f_news' function() {
+jQuery(document).on('change', '#news .f_news', function() {
   feed = jQuery(this).text();
   date = new Date();
   window.console.log("Bingo working: " + date.toString());
