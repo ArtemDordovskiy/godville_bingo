@@ -1,4 +1,4 @@
-jQuery('#diary').on('DOMNodeInserted', "[title='Этот глас не представляет из себя ничего интересного и остроумного']", function(){
-  window.console.log(jQuery('.vote_link').parent('.d_msg').text());
-  jQuery(this).click();
+jQuery('#diary').bind('DOMNodeInserted', function(){
+  window.console.log(jQuery('.d_msg').text());
+  jQuery("[title='Этот глас не представляет из себя ничего интересного и остроумного']").click();
 });
