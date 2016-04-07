@@ -10,7 +10,7 @@
       "matches": [
         "https://godville.net/*"
       ],
-      "js": ["jquery-2.2.3.min.js", "godville_bingo.js"]
+      "js": ["jquery-2.2.3.min.js", "godville_bingo.js", "acc_prana.js"]
     }
   ],
   
