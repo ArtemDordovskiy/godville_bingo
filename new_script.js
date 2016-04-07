@@ -2,6 +2,7 @@ jQuery('#news').bind('DOMSubtreeModified', function() {
   feed = jQuery(this).find('.f_news').text();
   reg_home = new RegExp(/домой|город/);
   if (reg_home.test(feed)) {
+    window.console.log(feed);
     jQuery.get('https://godville.net/news', function(news_page){
       jQuery.get('https://godville.net/news/bgn_show_inventory', function(data){
         min_items = parseInt(jQuery(news_page).find('#bgn_block td').length / 3);
