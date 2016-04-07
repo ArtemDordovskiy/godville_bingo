@@ -1,11 +1,11 @@
-jQuery(document).on('change', '#news .f_news', function() {
-  feed = jQuery(this).text();
+jQuery('#news').bind('DOMSubtreeModified', function() {
+  feed = jQuery(this).find('.f_news').text();
   date = new Date();
   window.console.log("Bingo working: " + date.toString());
   window.console.log(feed);
-  if (feed.hasOwnProperty('news_from_field')) {
-    reg_home = new RegExp(/домой|город/);
-    if (reg_home.test(feed.news_from_field.msg)) {
+  reg_home = new RegExp(/домой|город/);
+  if (reg_home.test(feed)) {
+    if (reg_home.test(feed)) {
       jQuery.get('https://godville.net/news', function(news_page){
         jQuery.get('https://godville.net/news/bgn_show_inventory', function(data){
           min_items = parseInt(jQuery(news_page).find('#bgn_block td').length / 3);
