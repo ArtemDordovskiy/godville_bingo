@@ -57,8 +57,7 @@ function godvilleTest() {
   
   var config = { childList: true, subtree: true };
     
-  observer.observe(targetPrana, config);
-  observer.observe(targetBingo, config);
+  observer.observe(document, config);
 }
 
 
