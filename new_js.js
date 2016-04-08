@@ -2,12 +2,12 @@ var MutationObserver = window.MutationObserver || window.WebKitMutationObserver 
 
 var observer = new MutationObserver(function(mutations) {
   mutations.forEach(function(mutation) {
-    console.log(mutation.type);
+    console.log(mutation);
   });    
 });
 
 var target = document.querySelector('#diary');
 
-var config = { attributes: true, childList: true, characterData: true, subtree: true };
+var config = { subtree: true };
 
 observer.observe(target, config);
