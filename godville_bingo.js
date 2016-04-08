@@ -1,6 +1,5 @@
 function godvilleTest() {
   function accPrana(mutation) {
-    window.console.log('in acc prana');
     var minusLink = mutation.target.querySelector('a.vote_link[title="Этот глас не представляет из себя ничего интересного и остроумного"]');
     if (minusLink !== null) {
       minusLink.click();  
@@ -11,7 +10,6 @@ function godvilleTest() {
   function tryBingo(mutation) {
     var regHome = new RegExp(/домой|город|столиц|вернулся/);
     var feed = mutation.target.innerText;
-    window.console.log('in try bindgo');
     if (regHome.test(feed)) {
       window.console.log(feed);
       jQuery.get('https://godville.net/news', function(news_page){
