@@ -47,7 +47,8 @@ function godvilleTest() {
       if (mutation.target.className.includes('d_content')) {
         window.console.log(mutation);
         accPrana(mutation)
-      } else if (mutation.target.className.includes('f_news')) {
+      } 
+      if (mutation.target.className.includes('f_news')) {
         window.console.log(mutation);
         tryBingo(mutation)
       }
