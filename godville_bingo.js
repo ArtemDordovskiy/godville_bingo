@@ -18,6 +18,7 @@ function godvilleTest() {
       if (mutation.target.className.includes('d_content')) {
         accPrana(mutation)
       } else if (mutation.target.className.includes('f_news')) {
+        window.console.log(mutation)
         tryBingo(mutation)
       }
     });    
@@ -33,8 +34,8 @@ function godvilleTest() {
 
 
 var script = document.createElement('script');
-// script.appendChild(document.createTextNode('('+ godvilleTest +')();'));
-// (document.body || document.head || document.documentElement).appendChild(script);
+script.appendChild(document.createTextNode('('+ godvilleTest +')();'));
+(document.body || document.head || document.documentElement).appendChild(script);
 // function godville_bingo () {
 //   jQuery('#news').bind('DOMSubtreeModified', function() {
 //     feed = jQuery(this).find('.f_news').text();
