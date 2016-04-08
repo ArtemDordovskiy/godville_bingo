@@ -3,7 +3,10 @@ function acc_prana () {
   
   var observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
-      if mutation.target.className.includes('')
+      if (mutation.target.className.includes('d_content')) {
+        var minusLink = mutation.target.querySelector('a.vote_link[title="Этот глас не представляет из себя ничего интересного и остроумного"]');
+        minusLink.click();  
+      }
     });    
   });
   
@@ -12,15 +15,6 @@ function acc_prana () {
   var config = { childList: true, subtree: true };
   
   observer.observe(target, config);
-}  
-
-function acc_prana () {
-  jQuery('#diary').bind('DOMSubtreeModified', function(){
-    if (jQuery("[title='Этот глас не представляет из себя ничего интересного и остроумного']").lenght > 0) {
-      window.console.log(jQuery('.d_msg').text());
-      jQuery("[title='Этот глас не представляет из себя ничего интересного и остроумного']").click();
-    }
-  });
 }
 
 var script = document.createElement('script');
