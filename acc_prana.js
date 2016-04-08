@@ -5,8 +5,10 @@ function acc_prana () {
     mutations.forEach(function(mutation) {
       if (mutation.target.className.includes('d_content')) {
         var minusLink = mutation.target.querySelector('a.vote_link[title="Этот глас не представляет из себя ничего интересного и остроумного"]');
-        minusLink.click();  
-        window.console.log('-1');
+        if (minusLink !== null) {
+          minusLink.click();  
+          window.console.log('-1');
+        }
       }
     });    
   });
