@@ -61,7 +61,6 @@ function godvilleTest() {
   observer.observe(document, config);
 }
 
-
 var script = document.createElement('script');
 script.type = 'text/javascript';
 script.appendChild(document.createTextNode('('+ godvilleTest +')();'));
