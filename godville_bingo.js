@@ -53,9 +53,6 @@ function godvilleTest() {
     });    
   });
     
-  var targetPrana = document.querySelector('#diary');
-  var targetBingo = document.querySelector('#news');
-  
   var config = { childList: true, subtree: true };
     
   observer.observe(document, config);
