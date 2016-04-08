@@ -8,6 +8,6 @@ var observer = new MutationObserver(function(mutations) {
 
 var target = document.querySelector('#diary');
 
-var config = { characterData: true, subtree: true };
+var config = { childList: true, subtree: true };
 
 observer.observe(target, config);
