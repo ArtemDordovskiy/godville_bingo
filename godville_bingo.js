@@ -27,7 +27,7 @@ function godvilleTest() {
           if (data.score >= min_score && data.found >= min_items) { 
             jQuery.post('https://godville.net/news/bgn_use_inventory', 
               function(new_data){ 
-          	    window.console.log(new_data); 
+                window.console.log(new_data); 
               }
             )
           } else if (data.score < min_score) {
