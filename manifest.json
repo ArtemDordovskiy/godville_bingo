@@ -3,7 +3,7 @@
 
   "name": "Godville Bingo God",
   "description": "This extension makes my bingo",
-  "version": "0.99",
+  "version": "1.0",
 
   "content_scripts": [
     {
