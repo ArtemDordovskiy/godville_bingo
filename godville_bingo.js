@@ -14,25 +14,25 @@ function godvilleTest() {
       window.console.log(feed);
       jQuery.get('https://godville.net/news', function(news_page){
         jQuery.get('https://godville.net/news/bgn_show_inventory', function(data){
-          min_items = parseInt(jQuery(news_page).find('#bgn_block td').length / 3);
-          min_score = min_items * 2;
-          window.console.log("Min items: " + min_items);
-          window.console.log("Min score: " + min_score);
-          //need to improve this condition --------------------------------------------------------------------------
-          if (data.old_score > 3*min_score) { min_items > 3 ? min_items = min_items - 2 : min_items = min_items - 1 }
-          //---------------------------------------------------------------------------------------------------------
+          attempts = parseInt(document.getElementById('b_cnt').innerText);
+          minItems = jQuery(news_page).find('#bgn_block td').length / 3;
+          minItems = Number.isInteger(minItems) ? minItems - 1 : parseInt(minItems);
+          minItems = (data.old_score > 0 && data.old_score < 15 && (data.score + data.old_score) < 24 && attampts === 1) ? minItems + 1 : minItems;
+          minScore = minItems * 2;
+          window.console.log("Min items: " + minItems);
+          window.console.log("Min score: " + minScore);
           window.console.log('Get new score: ' + data.score);
           window.console.log('Previous sum of scores: ' + data.old_score);
           window.console.log('Found items: ' + data.found);
-          if (data.score >= min_score && data.found >= min_items) { 
+          if (data.score >= minScore && data.found >= minItems) { 
             jQuery.post('https://godville.net/news/bgn_use_inventory', 
               function(new_data){ 
                 window.console.log(new_data); 
               }
             )
-          } else if (data.score < min_score) {
+          } else if (data.score < minScore) {
             window.console.log('not enough score');
-          } else if (data.found < min_items) {
+          } else if (data.found < minItems) {
             window.console.log('not enough items');
           }
         })
