@@ -17,7 +17,7 @@ function godvilleTest() {
           attempts = parseInt(jQuery(news_page).find('#b_cnt').text());
           minItems = jQuery(news_page).find('#bgn_block td').length / 3;
           minItems = Number.isInteger(minItems) ? minItems - 1 : parseInt(minItems);
-          minItems = (data.old_score > 0 && data.old_score < 15 && (data.score + data.old_score) < 24 && attampts === 1) ? minItems + 1 : minItems;
+          minItems = (data.old_score > 0 && data.old_score < 15 && (data.score + data.old_score) < 24 && attempts === 1) ? minItems + 1 : minItems;
           minScore = minItems * 2;
           window.console.log("Min items: " + minItems);
           window.console.log("Min score: " + minScore);
