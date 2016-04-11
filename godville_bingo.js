@@ -1,4 +1,12 @@
 function godvilleTest() {
+  var config = { childList: true, subtree: true };
+
+  function redirectToSuperhero() {
+    setTimeout(function(){
+      window.location.href = 'https://godville.net/superhero';
+    }, 180000)
+  }
+
   function accPrana(mutation) {
     var minusLink = mutation.target.querySelector('a.vote_link[title="Этот глас не представляет из себя ничего интересного и остроумного"]');
     if (minusLink !== null) {
@@ -45,15 +53,22 @@ function godvilleTest() {
   var observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
       if (mutation.target.className.includes('d_content')) {
-        accPrana(mutation)
+        observer.disconnect();
+        accPrana(mutation);
+        observer.observe(document, config);
       } 
       if (mutation.target.className.includes('f_news')) {
-        tryBingo(mutation)
+        observer.disconnect();
+        tryBingo(mutation);
+        observer.observe(document, config);
       }
-    });    
+      if (mutation.target.baseURI === "https://godville.net/news") {
+        observer.disconnect();
+        redirectToSuperhero();
+        observer.observe(document, config);
+      }
+    });
   });
-    
-  var config = { childList: true, subtree: true };
     
   observer.observe(document, config);
 }
