@@ -32,7 +32,7 @@ function godvilleTest() {
           window.console.log('Get new score: ' + data.score);
           window.console.log('Previous sum of scores: ' + data.old_score);
           window.console.log('Found items: ' + data.found);
-          if (data.score >= minScore && data.found >= minItems) { 
+          if (data.score >= minScore) { 
             jQuery.post('https://godville.net/news/bgn_use_inventory', 
               function(new_data){ 
                 window.console.log(new_data); 
