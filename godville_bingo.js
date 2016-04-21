@@ -1,31 +1,37 @@
 function godvilleTest() {
   var config = { childList: true, subtree: true };
 
+  var health = eval(document.querySelector('#hk_health .l_val').innerText);
+  var prana = parseInt(document.querySelector('.gp_val').innerText);
+  // var badAlignments = ['чистое зло!', 'чистое зло', 'злобный', 'агрессивный', 'озлобленный', 'недовольный', 'нейтральный'];
+  var goodAlignments = ['абсолютное добро', 'добродетельный', 'миролюбивый', 'добродушный', 'беззлобный'];
+  var alignment = document.querySelector('#hk_alignment .l_val').innerText;
+
+  var makeGood = document.querySelector('#cntrl1 .enc_link');
+
+
   function redirectToSuperhero() {
     setTimeout(function(){
       window.location.href = 'https://godville.net/superhero';
     }, 180000)
   }
 
+  function healSelf() {
+    if (health < 0.1 && prana >= 25 && goodAlignments.includes(alignment)) {
+      makeGood.click();
+    }
+  }
+
   function smeltBrick() {
     var templehood = parseInt(document.querySelector('#pantheons a[href^="/pantheon/show/templehood"]').innerText);
-
-    if (templehood === NaN) {
+    if (isNaN(templehood)) {
       var gold = parseInt(document.querySelector('#hk_gold_we .l_val').innerText.replace(/\D+(\d+)\D+/, '$1'));
-      var prana = parseInt(document.querySelector('.gp_val').innerText);
 
-      if (gold > 3200 && prana > 50) {
+      if (gold >= 3200 && prana >= 50) {
         var posts = parseInt(document.querySelector('#hk_distance .l_val').innerText);
         var items = document.querySelectorAll('#inv_block_content li:not([class="heal_item"])');
 
-        if (posts !== NaN || items.length === 0) {
-          var alignment = document.querySelector('#hk_alignment .l_val').innerText;
-          var goodAlignments = ['абсолютное добро', 'добродетельный', 'миролюбивый', 'добродушный', 'беззлобный'];
-          // var badAlignments = ['чистое зло!', 'чистое зло', 'злобный', 'агрессивный', 'озлобленный', 'недовольный', 'нейтральный'];
-
-          var health = eval(document.querySelector('#hk_health .l_val').innerText);
-
-          var makeGood = document.querySelector('#cntrl1 .enc_link');
+        if (!isNaN(posts) || items.length === 0) {
           var makeBad = document.querySelector('#cntrl1 .pun_link');
           var goldBricks = parseFloat(document.querySelector('#hk_bricks_cnt .l_val').innerText);
           var oldGoldBricks = goldBricks;
@@ -102,6 +108,11 @@ function godvilleTest() {
       if (mutation.target.id === 'hk_gold_we') {
         observer.disconnect();
         smeltBrick();
+        observer.observe(document, config);
+      }
+      if (mutation.target.id === 'hk_health') {
+        observer.disconnect();
+        healSelf();
         observer.observe(document, config);
       }
     });
