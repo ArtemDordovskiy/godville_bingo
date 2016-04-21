@@ -58,22 +58,24 @@ function godvilleTest() {
     if (regHome.test(feed)) {
       window.console.log(feed);
       jQuery.get('https://godville.net/news', function(news_page){
-        jQuery.get('https://godville.net/news/bgn_show_inventory', function(data){
-          attempts = parseInt(jQuery(news_page).find('#b_cnt').text());
-          minItems = jQuery(news_page).find('#bgn_block td').length / 4;
-          minItems = parseInt(minItems);
-          minItems = (data.old_score > 0 && data.old_score < 18 && (data.score + data.old_score) < 24 && attempts === 1) ? minItems + 1 : minItems;
-          minScore = minItems * 2;
-          if (data.score >= minScore) {
-            jQuery.post('https://godville.net/news/bgn_use_inventory', 
-              function(new_data){ 
-                window.console.log(new_data); 
-              }
-            )
-          } else if (data.score < minScore) {
-            window.console.log('not enough score');
-          }
-        })
+        var attempts = parseInt(jQuery(news_page).find('#b_cnt').text());
+        if (attempts > 0) {
+          jQuery.get('https://godville.net/news/bgn_show_inventory', function(data){
+            var minItems = jQuery(news_page).find('#bgn_block td').length / 4;
+            minItems = parseInt(minItems);
+            minItems = ((data.score + data.old_score) < 22 && attempts === 1) ? minItems + 1 : minItems;
+            var minScore = minItems * 2;
+            if (data.score >= minScore) {
+              jQuery.post('https://godville.net/news/bgn_use_inventory', 
+                function(new_data){ 
+                  window.console.log(new_data); 
+                }
+              )
+            } else if (data.score < minScore) {
+              window.console.log('not enough score');
+            }
+          })
+        }
       })
     }
   }
