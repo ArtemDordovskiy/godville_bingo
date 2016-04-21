@@ -96,7 +96,7 @@ function godvilleTest() {
         observer.disconnect();
         redirectToSuperhero();
         observer.observe(document, config);
-      } else {
+      } else if (mutation.target.baseURI === "https://godville.net/superhero") {
         initProps();
         if (mutation.target.className.includes('d_content')) {
           observer.disconnect();
