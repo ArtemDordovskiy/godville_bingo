@@ -92,11 +92,7 @@ function godvilleTest() {
     
   var observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
-      if (mutation.target.baseURI === "https://godville.net/news") {
-        observer.disconnect();
-        redirectToSuperhero();
-        observer.observe(document, config);
-      } else if (mutation.target.baseURI === "https://godville.net/superhero") {
+      if (mutation.target.baseURI === "https://godville.net/superhero") {
         initProps();
         if (mutation.target.className.includes('d_content')) {
           observer.disconnect();
@@ -118,6 +114,10 @@ function godvilleTest() {
           healSelf();
           observer.observe(document, config);
         }
+      } else {
+        observer.disconnect();
+        redirectToSuperhero();
+        observer.observe(document, config);
       }
     });
   });
