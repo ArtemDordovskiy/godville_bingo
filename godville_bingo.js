@@ -70,7 +70,8 @@ function godvilleTest() {
         if (attempts > 0) {
           jQuery.get('https://godville.net/news/bgn_show_inventory', function(data){
             var minItems = jQuery(news_page).find('#bgn_block td').length / 4;
-            minItems = parseInt(minItems);
+            var minItems2 = jQuery(news_page).find('#bgn_block td').length / 3;
+            minItems = (parseInt(minItems2) - parseInt(minItems)) === 2 ? parseInt(minItems) + 1 : parseInt(minItems);
             minItems = ((data.score + data.old_score) < 22 && attempts === 1) ? minItems + 1 : minItems;
             var minScore = minItems * 2;
             if (data.score >= minScore) {
