@@ -21,7 +21,6 @@ function godvilleTest() {
   function healSelf() {
     if (health < 0.1 && prana >= 25 && goodAlignments.includes(alignment)) {
       window.console.log('heal self');
-      window.console.log(makeGood);
       makeGood.click();
     }
   }
@@ -107,16 +106,17 @@ function godvilleTest() {
           tryBingo(mutation);
           observer.observe(document, config);
         }
-        if (mutation.target.id === 'hk_gold_we') {
-          observer.disconnect();
-          smeltBrick();
-          observer.observe(document, config);
-        }
-        if (mutation.target.id === 'hk_health') {
-          observer.disconnect();
-          healSelf();
-          observer.observe(document, config);
-        }
+        // if (mutation.target.id === 'hk_gold_we') {
+        //   observer.disconnect();
+        //   smeltBrick();
+        //   observer.observe(document, config);
+        // }
+        // if (mutation.target.id === 'logger') {
+        //   console.log(mutation.target.childNodes.last);
+        //   observer.disconnect();
+        //   healSelf();
+        //   observer.observe(document, config);
+        // }
       } else {
         observer.disconnect();
         redirectToSuperhero();
