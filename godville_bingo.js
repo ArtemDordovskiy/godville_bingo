@@ -20,6 +20,7 @@ function godvilleTest() {
 
   function healSelf() {
     if (health < 0.1 && prana >= 25 && goodAlignments.includes(alignment)) {
+      window.console.log('heal self');
       makeGood.click();
     }
   }
