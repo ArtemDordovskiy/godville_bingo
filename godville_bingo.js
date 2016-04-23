@@ -1,8 +1,8 @@
 function godvilleTest() {
   var config = { childList: true, subtree: true };
-  var health, prana, goodAlignments, alignment, makeGood;
+  var health, prana, goodAlignments, alignment, makeGood, feed, regHome, regGold, regHealth;
 
-  function initProps() {
+  function initProps(mutation) {
     health = eval(document.querySelector('#hk_health .l_val').innerText);
     prana = parseInt(document.querySelector('.gp_val').innerText);
     // var badAlignments = ['чистое зло!', 'чистое зло', 'злобный', 'агрессивный', 'озлобленный', 'недовольный', 'нейтральный'];
@@ -10,6 +10,11 @@ function godvilleTest() {
     alignment = document.querySelector('#hk_alignment .l_val').innerText;
 
     makeGood = document.querySelector('#cntrl1 .enc_link');
+
+    regHome =   new RegExp(/домой|город|столиц|вернулся/);
+    regGold =   new RegExp(/монет/);
+    regHealth = new RegExp(/\d+/);
+    feed = mutation.target.innerText;
   }
 
   function redirectToSuperhero() {
@@ -28,7 +33,7 @@ function godvilleTest() {
   function smeltBrick() {
     var templehood = parseInt(document.querySelector('#pantheons a[href^="/pantheon/show/templehood"]').innerText);
     if (isNaN(templehood)) {
-      var gold = parseInt(document.querySelector('#hk_gold_we .l_val').innerText.replace(/\D+(\d+)\D+/, '$1'));
+      var gold = parseInt(feed.replace(/\D+(\d+)\D+/, '$1'));
 
       if (gold >= 3200 && prana >= 50) {
         var posts = parseInt(document.querySelector('#hk_distance .l_val').innerText);
@@ -61,33 +66,28 @@ function godvilleTest() {
     }
   }
   
-  function tryBingo(mutation) {
-    var regHome = new RegExp(/домой|город|столиц|вернулся/);
-    var feed = mutation.target.innerText;
-    if (regHome.test(feed)) {
-      window.console.log(feed);
-      jQuery.get('https://godville.net/news', function(news_page){
-        var attempts = parseInt(jQuery(news_page).find('#b_cnt').text());
-        if (attempts > 0) {
-          jQuery.get('https://godville.net/news/bgn_show_inventory', function(data){
-            var minItems = jQuery(news_page).find('#bgn_block td').length / 4;
-            var minItems2 = jQuery(news_page).find('#bgn_block td').length / 3;
-            minItems = (parseInt(minItems2) - parseInt(minItems)) === 2 ? parseInt(minItems) + 1 : parseInt(minItems);
-            minItems = ((data.score + data.old_score) < 24 && attempts === 1) ? minItems + 2 : minItems;
-            var minScore = minItems * 2;
-            if (data.score >= minScore) {
-              jQuery.post('https://godville.net/news/bgn_use_inventory', 
-                function(new_data){ 
-                  window.console.log(new_data); 
-                }
-              )
-            } else if (data.score < minScore) {
-              window.console.log('not enough score');
-            }
-          })
-        }
-      })
-    }
+  function tryBingo() {
+    jQuery.get('https://godville.net/news', function(news_page){
+      var attempts = parseInt(jQuery(news_page).find('#b_cnt').text());
+      if (attempts > 0) {
+        jQuery.get('https://godville.net/news/bgn_show_inventory', function(data){
+          var minItems = jQuery(news_page).find('#bgn_block td').length / 4;
+          var minItems2 = jQuery(news_page).find('#bgn_block td').length / 3;
+          minItems = (parseInt(minItems2) - parseInt(minItems)) === 2 ? parseInt(minItems) + 1 : parseInt(minItems);
+          minItems = ((data.score + data.old_score) < 24 && attempts === 1) ? minItems + 2 : minItems;
+          var minScore = minItems * 2;
+          if (data.score >= minScore) {
+            jQuery.post('https://godville.net/news/bgn_use_inventory',
+              function(new_data){
+                window.console.log(new_data);
+              }
+            )
+          } else if (data.score < minScore) {
+            window.console.log('not enough score');
+          }
+        })
+      }
+    })
   }
   
   var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
@@ -95,28 +95,33 @@ function godvilleTest() {
   var observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
       if (mutation.target.baseURI === "https://godville.net/superhero") {
-        initProps();
+        initProps(mutation);
         if (mutation.target.className.includes('d_content')) {
           observer.disconnect();
           accPrana(mutation);
           observer.observe(document, config);
         }
-        if (mutation.target.className.includes('f_news')) {
+        if (mutation.target.className.includes('f_news') && regHome.test(feed)) {
           observer.disconnect();
+          window.console.log('Try to send items to bingo');
+          window.console.log(feed);
           tryBingo(mutation);
           observer.observe(document, config);
         }
-        // if (mutation.target.id === 'hk_gold_we') {
-        //   observer.disconnect();
-        //   smeltBrick();
-        //   observer.observe(document, config);
-        // }
-        // if (mutation.target.id === 'logger') {
-        //   console.log(mutation.target.childNodes.last);
-        //   observer.disconnect();
-        //   healSelf();
-        //   observer.observe(document, config);
-        // }
+        if (mutation.target.className.includes('l_val') && regGold.test(feed)) {
+          observer.disconnect();
+          window.console.log('Try to smelt a brick');
+          window.console.log(feed);
+          smeltBrick();
+          observer.observe(document, config);
+        }
+        if (mutation.target.className.includes('f_news') && regHealth.test(feed)) {
+          observer.disconnect();
+          window.console.log(feed);
+          window.console.log('Try to heal self');
+          healSelf();
+          observer.observe(document, config);
+        }
       } else {
         observer.disconnect();
         redirectToSuperhero();
