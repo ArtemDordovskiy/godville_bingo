@@ -3,7 +3,7 @@ function godvilleTest() {
   var health, prana, goodAlignments, alignment, makeGood, feed, regHome, regGold, regHealth;
 
   function initProps(mutation) {
-    health = eval(document.querySelector('#hk_health .l_val').innerText);
+    health = parseInt(document.querySelector('#hk_health .p_val').style.width);
     prana = parseInt(document.querySelector('.gp_val').innerText);
     // var badAlignments = ['чистое зло!', 'чистое зло', 'злобный', 'агрессивный', 'озлобленный', 'недовольный', 'нейтральный'];
     goodAlignments = ['абсолютное добро', 'добродетельный', 'миролюбивый', 'добродушный', 'беззлобный'];
@@ -24,7 +24,7 @@ function godvilleTest() {
   }
 
   function healSelf() {
-    if (health < 0.1 && prana >= 25 && goodAlignments.includes(alignment)) {
+    if (health < 10 && prana >= 25 && goodAlignments.includes(alignment)) {
       window.console.log('heal self');
       makeGood.click();
     }
