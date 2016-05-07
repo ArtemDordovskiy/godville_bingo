@@ -1,6 +1,32 @@
 function godvilleTest() {
   var config = { childList: true, subtree: true };
-  var health, prana, goodAlignments, alignment, makeGood, feed, regHome, regGold, regHealth;
+  var health, prana, goodAlignments, alignment, makeGood, feed, regHome, regGold, regHealth, position;
+  
+  // Helper function to get an element's exact position
+  function getPosition(el) {
+    var xPos = 0;
+    var yPos = 0;
+  
+    while (el) {
+      if (el.tagName == "BODY") {
+        // deal with browser quirks with body/window/document and page scroll
+        var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
+        var yScroll = el.scrollTop || document.documentElement.scrollTop;
+  
+        xPos += (el.offsetLeft - xScroll + el.clientLeft);
+        yPos += (el.offsetTop - yScroll + el.clientTop);
+      } else {
+        // for all other non-BODY elements
+        xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+        yPos += (el.offsetTop - el.scrollTop + el.clientTop);
+      }
+      el = el.offsetParent;
+    }
+    return {
+      x: xPos,
+      y: yPos
+    };
+  }
 
   function initProps(mutation) {
     health = parseInt(document.querySelector('#hk_health .p_val').style.width);
@@ -10,6 +36,8 @@ function godvilleTest() {
     alignment = document.querySelector('#hk_alignment .l_val').innerText;
 
     makeGood = document.querySelector('#cntrl1 .enc_link');
+    position = getPosition(makeGood);
+    window.console.log(position)
 
     regHome =   new RegExp(/домой|город|столиц|вернулся/);
     regGold =   new RegExp(/монет/);
