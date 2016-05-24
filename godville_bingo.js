@@ -122,39 +122,31 @@ function godvilleTest() {
     
   var observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
+      observer.disconnect();
       if (mutation.target.baseURI === "https://godville.net/superhero") {
         initProps(mutation);
         if (mutation.target.className.includes('d_content')) {
-          observer.disconnect();
           accPrana(mutation);
-          observer.observe(document, config);
         }
         if (mutation.target.className.includes('f_news') && regHome.test(feed)) {
-          observer.disconnect();
           window.console.log('Try to send items to bingo');
           window.console.log(feed);
           tryBingo(mutation);
-          observer.observe(document, config);
         }
         if (mutation.target.className.includes('l_val') && regGold.test(feed)) {
-          observer.disconnect();
           window.console.log('Try to smelt a brick');
           window.console.log(feed);
           smeltBrick();
-          observer.observe(document, config);
         }
         if (mutation.target.className.includes('f_news') && regHealth.test(feed)) {
-          observer.disconnect();
           window.console.log(feed);
           window.console.log('Try to heal self');
           healSelf();
-          observer.observe(document, config);
         }
       } else {
-        observer.disconnect();
         redirectToSuperhero();
-        observer.observe(document, config);
       }
+      observer.observe(document, config);
     });
   });
     
