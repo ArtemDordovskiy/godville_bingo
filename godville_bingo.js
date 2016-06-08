@@ -136,12 +136,14 @@ function godvilleTest() {
         if (mutation.target.className.includes('l_val') && regGold.test(feed)) {
           window.console.log('Try to smelt a brick');
           window.console.log(feed);
-          smeltBrick();
+          // not working
+          // smeltBrick();
         }
         if (mutation.target.className.includes('f_news') && regHealth.test(feed)) {
           window.console.log(feed);
           window.console.log('Try to heal self');
-          healSelf();
+          // not working
+          // healSelf();
         }
       } else {
         redirectToSuperhero();
